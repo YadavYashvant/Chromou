@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.example.chromou.data.ThemePreferences
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -35,6 +36,23 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun ChromouTheme(
+    themePreferences: ThemePreferences,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when (themePreferences.themeStyle) {
+        "dark" -> dynamicDarkColorScheme(LocalContext.current)
+        else -> dynamicLightColorScheme(LocalContext.current)
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        content = content
+    )
+}
+
+/*
+@Composable
+fun ChromouTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
@@ -55,4 +73,4 @@ fun ChromouTheme(
         typography = Typography,
         content = content
     )
-}
+}*/

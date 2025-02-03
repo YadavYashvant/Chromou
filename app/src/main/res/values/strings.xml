@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Chromou</string>
+    <string name="current_theme">Current Theme: %1$s</string>
+    <string name="dark_theme_button">Set Dark Theme</string>
+    <string name="light_theme_button">Set Light Theme</string>
+    <string name="hue_slider_label">Adjust Hue</string>
 </resources>
