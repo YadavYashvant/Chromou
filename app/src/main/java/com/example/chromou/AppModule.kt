@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import com.example.chromou.data.ThemePreferencesRepository
+import com.example.chromou.domain.UpdateHueUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +29,11 @@ object AppModule {
     @Singleton
     fun provideThemePreferencesRepository(dataStore: DataStore<Preferences>): ThemePreferencesRepository {
         return ThemePreferencesRepository(dataStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateHueUseCase(repository: ThemePreferencesRepository): UpdateHueUseCase {
+        return UpdateHueUseCase(repository)
     }
 }

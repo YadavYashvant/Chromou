@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.chromou.data.ThemePreferences
 import com.example.chromou.domain.GetThemePreferencesUseCase
 import com.example.chromou.domain.UpdateThemeStyleUseCase
+import com.example.chromou.domain.UpdateHueUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChromouViewmodel @Inject constructor(
     private val getThemePreferences: GetThemePreferencesUseCase,
-    private val updateThemeStyle: UpdateThemeStyleUseCase
+    private val updateThemeStyle: UpdateThemeStyleUseCase,
+    private val updateHueUseCase: UpdateHueUseCase
 ) : ViewModel() {
 
     private val _themeState = MutableStateFlow(ThemePreferences("default", 0.5f))
@@ -31,14 +33,12 @@ class ChromouViewmodel @Inject constructor(
     fun updateThemeStyle(style: String) {
         viewModelScope.launch {
             updateThemeStyle(style)
-            _themeState.value = _themeState.value.copy(themeStyle = style)
         }
     }
 
     fun updateHue(hue: Float) {
         viewModelScope.launch {
-            updateHue(hue)
-            _themeState.value = _themeState.value.copy(hue = hue)
+            updateHueUseCase(hue)
         }
     }
 }
